@@ -18,7 +18,9 @@ public class account
         String password=s.nextLine();
         //creating new account object
         createAccount acc= new createAccount(name, dob, phnnum, password);
+        accounts.add(acc);
         System.out.println("Your account Id is: "+acc.getAccountId());
+
 
         // taking input to verify details
         System.out.print("Enter Id for login: ");
@@ -30,7 +32,7 @@ public class account
         useAccount user=new useAccount();
         bankAccount bank=new bankAccount(acc);
 
-        if(user.verify(acc, Id, strongpass))
+        if(user.verify(acc,Id, strongpass))
         {
             System.out.println("Login Successfully");
             boolean exit=false;
@@ -41,7 +43,8 @@ public class account
                 System.out.println("3. Withdraw");
                 System.out.println("4. Show current balance");
                 System.out.println("5. View details of account");
-                System.out.println("6. Exit");
+                System.out.println("6. Delete account.");
+                System.out.println("7. Exit");
 
                 int choice = s.nextInt();
                 s.nextLine();
@@ -80,8 +83,16 @@ public class account
                         acc.details();
                         break;
 
-                        //exiting condition
+                        //delete account
                     case 6:
+                        System.out.println("Re-enter you account ID: ");
+                        String z=s.nextLine();
+                        System.out.println("Re-enter your password: ");
+                        String y=s.nextLine();
+                        deleteAcc(z,y);
+
+                        //exiting condition
+                    case 7:
                         exit=true;
                         System.out.println("Exiting.");
                         break;
@@ -140,10 +151,26 @@ public class account
         else
         {
             System.out.println("Invalid Account Id or password");
-        }
+        };
         System.out.println("New changed account detail-- ");
         acc.details();
+
         s.close();
+    }
+    public static void deleteAcc(String accoutId,String password){
+        boolean f=false;
+        for(int i=0;i<accounts.size();i++){
+            if((accounts.get(i).getAccountId().equals(accoutId)&&accounts.get(i).getPassword().equals(password)))
+            {
+                accounts.remove(i);
+                f=true;
+                System.out.println("Account deleted successfully!");
+                break;
+            }
+        }
+        if(!f){
+            System.out.println("Account not found!");
+        }
     }
 }
 
