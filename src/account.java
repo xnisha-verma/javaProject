@@ -43,8 +43,7 @@ public class account
                 System.out.println("3. Withdraw");
                 System.out.println("4. Show current balance");
                 System.out.println("5. View details of account");
-                System.out.println("6. Delete account.");
-                System.out.println("7. Exit");
+                System.out.println("6. Exit");
 
                 int choice = s.nextInt();
                 s.nextLine();
@@ -83,23 +82,18 @@ public class account
                         acc.details();
                         break;
 
-                        //delete account
-                    case 6:
-                        System.out.println("Re-enter you account ID: ");
-                        String z=s.nextLine();
-                        System.out.println("Re-enter your password: ");
-                        String y=s.nextLine();
-                        deleteAcc(z,y);
-
                         //exiting condition
-                    case 7:
+                    case 6:
                         exit=true;
                         System.out.println("Exiting.");
                         break;
                     default:
                         System.out.println("Invalid choice.");
+                        break;
+
                 }
             }
+
         }
         else
         {
@@ -111,12 +105,13 @@ public class account
         update Update=new update();
         if(user.verify(acc,Id, strongpass ))
         {
-            System.out.println("What you want to update in your account?");
+            System.out.println("What you want to do?");
             boolean exit=false;
             while(!exit) {
-                System.out.println("1. Password");
-                System.out.println("2. Phone number");
-                System.out.println("3. Exit");
+                System.out.println("1. Update Password");
+                System.out.println("2. Update Phone number");
+                System.out.println("3. Delete account");
+                System.out.println("4. Exit");
 
                 int choice_ = s.nextInt();
                 s.nextLine();
@@ -132,14 +127,23 @@ public class account
 
                         //new phone number
                     case 2:
-                        System.out.println("Enter new Phone Number: ");
+                        System.out.print("Enter new Phone Number: ");
                         String phnno=s.nextLine();
                         Update.changephnNo(acc,phnno);
-                        System.out.println("Phone number changed successfully!");;
+                        System.out.print("Phone number changed successfully!");;
+                        break;
+
+                    //delete account
+                    case 3:
+                        System.out.print("Re-enter you account ID: ");
+                        String z=s.nextLine();
+                        System.out.print("Re-enter your password: ");
+                        String y=s.nextLine();
+                        deleteAcc(z,y);
                         break;
 
                     //exiting condition
-                    case 3:
+                    case 4:
                         exit=true;
                         System.out.println("Exiting...");
                     default:
@@ -151,7 +155,8 @@ public class account
         else
         {
             System.out.println("Invalid Account Id or password");
-        };
+        }
+
         System.out.println("New changed account detail-- ");
         acc.details();
 
